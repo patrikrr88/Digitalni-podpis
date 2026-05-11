@@ -1,62 +1,58 @@
 const fileInput = document.getElementById('txtFile');
 const fileName = document.getElementById('fileName');
 const content = document.getElementById('content');
+const certificateSelect = document.getElementById('certificateSelect');
 const signBtn = document.querySelector('.sign-btn');
-const certSelect = document.querySelector('select');
 
 fileInput.addEventListener('change', (e) => {
   const file = e.target.files[0];
-
   if (!file) return;
 
   fileName.textContent = file.name;
 
   const reader = new FileReader();
-
-  reader.onload = function(event) {
+  reader.onload = (event) => {
     content.value = event.target.result;
   };
 
   reader.readAsText(file);
 });
 
+async function loadCertificates() {
+  const res = await fetch('getCertificates.php');
+  const data = await res.json();
+
+  certificateSelect.innerHTML = '';
+
+  data.forEach(c => {
+    const opt = document.createElement('option');
+    opt.value = c.certifkey;
+    opt.textContent = `${c.firstname} ${c.lastname} - ${c.certifkey}`;
+    certificateSelect.appendChild(opt);
+  });
+}
+
+loadCertificates();
+
 signBtn.addEventListener('click', async () => {
   const text = content.value;
+  if (!text.trim()) return;
 
-  if (!text.trim()) {
-    alert("Není načtený žádný text.");
-    return;
-  }
+  const enc = new TextEncoder();
+  const hashBuffer = await crypto.subtle.digest('SHA-256', enc.encode(text));
 
-  const encoder = new TextEncoder();
-  const data = encoder.encode(text);
-
-  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-
-  const hashHex = hashArray
-    .map(b => b.toString(16).padStart(2, '0'))
+  const hash = [...new Uint8Array(hashBuffer)]
+    .map(b => b.toString(16).padStart(2,'0'))
     .join('');
 
-  const certifikat = certSelect.value;
+  const cert = certificateSelect.value;
 
-  const podpis = `
------ PODEPSÁNO -----
-Certifikát: ${certifikat}
-SHA-256: ${hashHex}
-Čas: ${new Date().toLocaleString()}
-`;
+  const signed = text +
+`\n\n--- SIGN ---\nCERT: ${cert}\nHASH: ${hash}\nTIME: ${new Date().toISOString()}`;
 
-  const finalContent = text + podpis;
-
-  const blob = new Blob([finalContent], { type: 'text/plain' });
-
+  const blob = new Blob([signed], { type: 'text/plain' });
   const a = document.createElement('a');
-
   a.href = URL.createObjectURL(blob);
-
-  a.download = 'podepsany_dokument.txt';
-
+  a.download = 'signed.txt';
   a.click();
 });

@@ -25,9 +25,8 @@
   
   h1 {
     font-size: 42px;
-    color: #1f2937;
     margin-bottom: 28px;
-    font-weight: 700;
+    color: #1f2937;
   }
   
   .form-group {
@@ -38,7 +37,6 @@
     display: block;
     margin-bottom: 10px;
     color: #6b7280;
-    font-size: 15px;
     font-weight: 600;
   }
   
@@ -48,95 +46,51 @@
     gap: 12px;
     border: 1px solid #d1d5db;
     border-radius: 10px;
-    padding: 10px 12px;
+    padding: 10px;
     background: #f9fafb;
   }
   
-  .file-wrapper input[type="file"] {
+  .file-wrapper input {
     display: none;
   }
   
   .file-btn {
+    padding: 8px 14px;
+    border: 1px solid #ccc;
     background: white;
-    border: 1px solid #cfd4dc;
-    padding: 9px 16px;
     border-radius: 8px;
     cursor: pointer;
-    font-size: 14px;
-    transition: 0.2s;
-  }
-  
-  .file-btn:hover {
-    background: #f3f4f6;
   }
   
   .file-name {
     color: #4b5563;
-    font-size: 14px;
   }
   
   textarea {
     width: 100%;
-    min-height: 290px;
-    resize: vertical;
+    min-height: 260px;
     border: 1px solid #d1d5db;
     border-radius: 12px;
-    padding: 18px;
+    padding: 15px;
     font-size: 15px;
-    line-height: 1.5;
-    outline: none;
-    background: #ffffff;
-  }
-  
-  textarea:focus,
-  select:focus {
-    border-color: #3b82f6;
   }
   
   select {
     width: 100%;
-    height: 48px;
-    border: 1px solid #d1d5db;
+    height: 45px;
     border-radius: 10px;
-    padding: 0 14px;
-    font-size: 15px;
-    background: white;
-    outline: none;
+    border: 1px solid #d1d5db;
+    padding: 0 10px;
   }
   
   .sign-btn {
     width: 100%;
-    height: 54px;
+    height: 52px;
     border: none;
     border-radius: 12px;
-    background: linear-gradient(90deg, #3b82f6, #2563eb);
+    background: #2563eb;
     color: white;
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 700;
     cursor: pointer;
-    transition: 0.2s;
-    margin-top: 8px;
-  }
-  
-  .sign-btn:hover {
-    transform: translateY(-1px);
-    opacity: 0.96;
-  }
-  
-  .sign-btn:active {
-    transform: scale(0.99);
-  }
-  
-  @media (max-width: 700px) {
-    .container {
-      padding: 24px;
-    }
-  
-    h1 {
-      font-size: 32px;
-    }
-  
-    textarea {
-      min-height: 220px;
-    }
   }
