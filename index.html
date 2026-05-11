@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Podpis TXT souboru</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+    <h1>Podpis TXT souboru</h1>
+
+    <div class="form-group">
+      <label>Vyber TXT soubor</label>
+
+      <div class="file-wrapper">
+        <label class="file-btn" for="txtFile">Vybrat soubor</label>
+
+        <input type="file" id="txtFile" accept=".txt">
+
+        <span class="file-name" id="fileName">
+          Žádný soubor
+        </span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Obsah dokumentu</label>
+
+      <textarea
+        id="content"
+        placeholder="Obsah TXT souboru..."
+      ></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Certifikační klíč</label>
+
+      <select>
+        <option>Mgr. Jana Nová</option>
+        <option>Ing. Petr Novák</option>
+        <option>Admin certifikát</option>
+      </select>
+    </div>
+
+    <button class="sign-btn">
+      Podepsat
+    </button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
